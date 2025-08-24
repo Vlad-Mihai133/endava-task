@@ -1,0 +1,65 @@
+2025-08-22 22:25:04.311 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/swagger/index.html - null null
+2025-08-22 22:25:04.403 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/swagger/index.html - 200 null text/html;charset=utf-8 91.7688ms
+2025-08-22 22:25:04.462 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/_framework/aspnetcore-browser-refresh.js - null null
+2025-08-22 22:25:04.463 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/_vs/browserLink - null null
+2025-08-22 22:25:04.470 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/_framework/aspnetcore-browser-refresh.js - 200 13768 application/javascript; charset=utf-8 7.6789ms
+2025-08-22 22:25:04.511 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/_vs/browserLink - 200 null text/javascript; charset=UTF-8 48.454ms
+2025-08-22 22:25:04.566 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/swagger/v1/swagger.json - null null
+2025-08-22 22:25:04.590 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 24.3418ms
+2025-08-22 22:25:22.929 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/api/cars/1/insurance-valid?date=2024-04-12 - null null
+2025-08-22 22:25:22.934 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api)'
+2025-08-22 22:25:22.951 +03:00 [INF] Route matched with {action = "IsInsuranceValid", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[CarInsurance.Api.Dtos.InsuranceValidityResponse]] IsInsuranceValid(Int64, System.String) on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:25:23.017 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__carId_0)
+2025-08-22 22:25:23.035 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__carId_0='?' (DbType = Int64), @__date_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Policies" AS "p"
+    WHERE "p"."CarId" = @__carId_0 AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "p"."StartDate", 'start of day'), '0'), '.') <= @__date_1 AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "p"."EndDate", 'start of day'), '0'), '.') >= @__date_1)
+2025-08-22 22:25:23.046 +03:00 [INF] Executing OkObjectResult, writing value of type 'CarInsurance.Api.Dtos.InsuranceValidityResponse'.
+2025-08-22 22:25:23.056 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api) in 98.9614ms
+2025-08-22 22:25:23.059 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api)'
+2025-08-22 22:25:23.062 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/api/cars/1/insurance-valid?date=2024-04-12 - 200 null application/json; charset=utf-8 132.7475ms
+2025-08-22 22:25:28.264 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/api/cars/1/insurance-valid?date=2026-04-12 - null null
+2025-08-22 22:25:28.267 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api)'
+2025-08-22 22:25:28.268 +03:00 [INF] Route matched with {action = "IsInsuranceValid", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[CarInsurance.Api.Dtos.InsuranceValidityResponse]] IsInsuranceValid(Int64, System.String) on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:25:28.274 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__carId_0)
+2025-08-22 22:25:28.277 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64), @__date_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Policies" AS "p"
+    WHERE "p"."CarId" = @__carId_0 AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "p"."StartDate", 'start of day'), '0'), '.') <= @__date_1 AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "p"."EndDate", 'start of day'), '0'), '.') >= @__date_1)
+2025-08-22 22:25:28.282 +03:00 [INF] Executing OkObjectResult, writing value of type 'CarInsurance.Api.Dtos.InsuranceValidityResponse'.
+2025-08-22 22:25:28.283 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api) in 12.4282ms
+2025-08-22 22:25:28.284 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api)'
+2025-08-22 22:25:28.285 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/api/cars/1/insurance-valid?date=2026-04-12 - 200 null application/json; charset=utf-8 20.4977ms
+2025-08-22 22:25:48.734 +03:00 [INF] Request starting HTTP/2 POST https://localhost:61341/cars/1/claims - application/json 79
+2025-08-22 22:25:48.738 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.RegisterInsuranceClaim (CarInsurance.Api)'
+2025-08-22 22:25:48.743 +03:00 [INF] Route matched with {action = "RegisterInsuranceClaim", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] RegisterInsuranceClaim(Int64, CarInsurance.Api.Dtos.CreateInsuranceClaimRequest) on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:25:48.774 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insuranceClaim_CarId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__insuranceClaim_CarId_0)
+2025-08-22 22:25:48.889 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int64), @p2='?' (DbType = DateTime), @p3='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Claims" ("Amount", "CarId", "ClaimDate", "Description")
+VALUES (@p0, @p1, @p2, @p3)
+RETURNING "Id";
+2025-08-22 22:25:48.912 +03:00 [INF] Executing CreatedAtActionResult, writing value of type 'null'.
+2025-08-22 22:25:48.927 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.RegisterInsuranceClaim (CarInsurance.Api) in 181.2959ms
+2025-08-22 22:25:48.929 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.RegisterInsuranceClaim (CarInsurance.Api)'
+2025-08-22 22:25:48.930 +03:00 [INF] Request finished HTTP/2 POST https://localhost:61341/cars/1/claims - 201 0 null 196.0335ms
+2025-08-22 22:25:59.281 +03:00 [INF] Request starting HTTP/2 POST https://localhost:61341/cars/1/claims - application/json 74
+2025-08-22 22:25:59.282 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.RegisterInsuranceClaim (CarInsurance.Api)'
+2025-08-22 22:25:59.283 +03:00 [INF] Route matched with {action = "RegisterInsuranceClaim", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] RegisterInsuranceClaim(Int64, CarInsurance.Api.Dtos.CreateInsuranceClaimRequest) on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:25:59.287 +03:00 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2025-08-22 22:25:59.288 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.RegisterInsuranceClaim (CarInsurance.Api) in 2.4713ms
+2025-08-22 22:25:59.290 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.RegisterInsuranceClaim (CarInsurance.Api)'
+2025-08-22 22:25:59.290 +03:00 [INF] Request finished HTTP/2 POST https://localhost:61341/cars/1/claims - 400 null text/plain; charset=utf-8 9.849ms

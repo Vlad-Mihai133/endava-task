@@ -1,0 +1,63 @@
+2025-08-22 22:33:06.853 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:61341/api/cars/1/history - null null
+2025-08-22 22:33:06.866 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.GetCarHistory (CarInsurance.Api)'
+2025-08-22 22:33:06.883 +03:00 [INF] Route matched with {action = "GetCarHistory", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[CarInsurance.Api.Dtos.CarHistoryDto]] GetCarHistory(Int64) on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:33:06.936 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__carId_0)
+2025-08-22 22:33:06.992 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-08-22 22:33:07.010 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c1"."Id", "c1"."Vin", "c1"."c", "c1"."c0", "c1"."YearOfManufacture", "p"."Id", "p"."StartDate", "p"."EndDate", COALESCE("p"."Provider", ''), "c0"."Id", "c0"."ClaimDate", "c0"."Description", CAST("c0"."Amount" AS INTEGER)
+FROM (
+    SELECT "c"."Id", "c"."Vin", COALESCE("c"."Make", '') AS "c", COALESCE("c"."Model", '') AS "c0", "c"."YearOfManufacture"
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__carId_0
+    LIMIT 1
+) AS "c1"
+LEFT JOIN "Policies" AS "p" ON "c1"."Id" = "p"."CarId"
+LEFT JOIN "Claims" AS "c0" ON "c1"."Id" = "c0"."CarId"
+ORDER BY "c1"."Id", "p"."StartDate", "p"."Id", "c0"."ClaimDate"
+2025-08-22 22:33:07.023 +03:00 [INF] Executing OkObjectResult, writing value of type 'CarInsurance.Api.Dtos.CarHistoryDto'.
+2025-08-22 22:33:07.040 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.GetCarHistory (CarInsurance.Api) in 151.9872ms
+2025-08-22 22:33:07.042 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.GetCarHistory (CarInsurance.Api)'
+2025-08-22 22:33:07.045 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:61341/api/cars/1/history - 200 null application/json; charset=utf-8 191.9054ms
+2025-08-22 22:33:55.870 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2025-08-22 22:33:55.923 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+2025-08-22 22:33:55.931 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2025-08-22 19:33:55.9285349+00:00');
+SELECT changes();
+2025-08-22 22:33:55.974 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+2025-08-22 22:33:55.980 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2025-08-22 22:33:55.982 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-08-22 22:33:55.988 +03:00 [INF] No migrations were applied. The database is already up to date.
+2025-08-22 22:33:55.991 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "__EFMigrationsLock";
+2025-08-22 22:33:56.147 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Owners" AS "o")
+2025-08-22 22:33:56.382 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__now_0='?' (DbType = DateTime), @__AddHours_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CarId", "p"."EndDate", "p"."Provider", "p"."StartDate"
+FROM "Policies" AS "p"
+WHERE "p"."EndDate" <= @__now_0 AND "p"."EndDate" >= @__AddHours_1
+2025-08-22 22:33:56.397 +03:00 [INF] Now listening on: https://localhost:61341
+2025-08-22 22:33:56.398 +03:00 [INF] Now listening on: http://localhost:61342
+2025-08-22 22:33:56.507 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-22 22:33:56.508 +03:00 [INF] Hosting environment: Development
+2025-08-22 22:33:56.510 +03:00 [INF] Content root path: C:\Work\Endava\Task\CarInsurance.Api
+2025-08-22 22:33:57.174 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/ - null null
+2025-08-22 22:33:57.371 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/ - 404 0 null 212.9689ms
+2025-08-22 22:33:57.376 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:61341/, Response status code: 404
+2025-08-22 22:33:59.482 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:61341/api/cars/1/claims - application/json 99
+2025-08-22 22:33:59.491 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:61341/api/cars/1/claims - 404 0 null 10.3093ms
+2025-08-22 22:33:59.494 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST https://localhost:61341/api/cars/1/claims, Response status code: 404

@@ -1,0 +1,107 @@
+2025-08-22 22:31:01.389 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/api/cars/1/insurance-valid?date=2025-12-04 - null null
+2025-08-22 22:31:01.395 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api)'
+2025-08-22 22:31:01.396 +03:00 [INF] Route matched with {action = "IsInsuranceValid", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[CarInsurance.Api.Dtos.InsuranceValidityResponse]] IsInsuranceValid(Int64, System.String) on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:31:01.400 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__carId_0)
+2025-08-22 22:31:01.403 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64), @__date_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Policies" AS "p"
+    WHERE "p"."CarId" = @__carId_0 AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "p"."StartDate", 'start of day'), '0'), '.') <= @__date_1 AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "p"."EndDate", 'start of day'), '0'), '.') >= @__date_1)
+2025-08-22 22:31:01.407 +03:00 [INF] Executing OkObjectResult, writing value of type 'CarInsurance.Api.Dtos.InsuranceValidityResponse'.
+2025-08-22 22:31:01.408 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api) in 10.0516ms
+2025-08-22 22:31:01.410 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api)'
+2025-08-22 22:31:01.411 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/api/cars/1/insurance-valid?date=2025-12-04 - 200 null application/json; charset=utf-8 21.5569ms
+2025-08-22 22:31:12.302 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/api/cars/2/history - null null
+2025-08-22 22:31:12.304 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.GetCarHistory (CarInsurance.Api)'
+2025-08-22 22:31:12.307 +03:00 [INF] Route matched with {action = "GetCarHistory", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[CarInsurance.Api.Dtos.CarHistoryDto]] GetCarHistory(Int64) on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:31:12.312 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__carId_0)
+2025-08-22 22:31:12.317 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c1"."Id", "c1"."Vin", "c1"."c", "c1"."c0", "c1"."YearOfManufacture", "p"."Id", "p"."StartDate", "p"."EndDate", COALESCE("p"."Provider", ''), "c0"."Id", "c0"."ClaimDate", "c0"."Description", CAST("c0"."Amount" AS INTEGER)
+FROM (
+    SELECT "c"."Id", "c"."Vin", COALESCE("c"."Make", '') AS "c", COALESCE("c"."Model", '') AS "c0", "c"."YearOfManufacture"
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__carId_0
+    LIMIT 1
+) AS "c1"
+LEFT JOIN "Policies" AS "p" ON "c1"."Id" = "p"."CarId"
+LEFT JOIN "Claims" AS "c0" ON "c1"."Id" = "c0"."CarId"
+ORDER BY "c1"."Id", "p"."StartDate", "p"."Id", "c0"."ClaimDate"
+2025-08-22 22:31:12.321 +03:00 [INF] Executing OkObjectResult, writing value of type 'CarInsurance.Api.Dtos.CarHistoryDto'.
+2025-08-22 22:31:12.322 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.GetCarHistory (CarInsurance.Api) in 10.8893ms
+2025-08-22 22:31:12.322 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.GetCarHistory (CarInsurance.Api)'
+2025-08-22 22:31:12.323 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/api/cars/2/history - 200 null application/json; charset=utf-8 21.4278ms
+2025-08-22 22:31:40.554 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2025-08-22 22:31:40.617 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+2025-08-22 22:31:40.626 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2025-08-22 19:31:40.6233552+00:00');
+SELECT changes();
+2025-08-22 22:31:40.673 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+2025-08-22 22:31:40.679 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2025-08-22 22:31:40.681 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-08-22 22:31:40.687 +03:00 [INF] No migrations were applied. The database is already up to date.
+2025-08-22 22:31:40.690 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "__EFMigrationsLock";
+2025-08-22 22:31:40.840 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Owners" AS "o")
+2025-08-22 22:31:41.071 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__now_0='?' (DbType = DateTime), @__AddHours_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CarId", "p"."EndDate", "p"."Provider", "p"."StartDate"
+FROM "Policies" AS "p"
+WHERE "p"."EndDate" <= @__now_0 AND "p"."EndDate" >= @__AddHours_1
+2025-08-22 22:31:41.083 +03:00 [INF] Now listening on: https://localhost:61341
+2025-08-22 22:31:41.084 +03:00 [INF] Now listening on: http://localhost:61342
+2025-08-22 22:31:41.166 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-22 22:31:41.168 +03:00 [INF] Hosting environment: Development
+2025-08-22 22:31:41.170 +03:00 [INF] Content root path: C:\Work\Endava\Task\CarInsurance.Api
+2025-08-22 22:31:42.193 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/ - null null
+2025-08-22 22:31:42.389 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/ - 404 0 null 205.4819ms
+2025-08-22 22:31:42.395 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:61341/, Response status code: 404
+2025-08-22 22:31:44.983 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:61341/api/cars - null null
+2025-08-22 22:31:44.989 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.GetCars (CarInsurance.Api)'
+2025-08-22 22:31:45.005 +03:00 [INF] Route matched with {action = "GetCars", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[CarInsurance.Api.Dtos.CarDto]]] GetCars() on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:31:45.079 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Vin", "c"."Make", "c"."Model", "c"."YearOfManufacture", "c"."OwnerId", "o"."Name", "o"."Email"
+FROM "Cars" AS "c"
+INNER JOIN "Owners" AS "o" ON "c"."OwnerId" = "o"."Id"
+2025-08-22 22:31:45.088 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[CarInsurance.Api.Dtos.CarDto, CarInsurance.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-08-22 22:31:45.107 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.GetCars (CarInsurance.Api) in 98.0644ms
+2025-08-22 22:31:45.108 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.GetCars (CarInsurance.Api)'
+2025-08-22 22:31:45.112 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:61341/api/cars - 200 null application/json; charset=utf-8 130.016ms
+2025-08-22 22:31:52.020 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:61341/api/cars/1/insurance-valid?date=2024-06-01 - null null
+2025-08-22 22:31:52.024 +03:00 [INF] Executing endpoint 'CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api)'
+2025-08-22 22:31:52.033 +03:00 [INF] Route matched with {action = "IsInsuranceValid", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[CarInsurance.Api.Dtos.InsuranceValidityResponse]] IsInsuranceValid(Int64, System.String) on controller CarInsurance.Api.Controllers.CarsController (CarInsurance.Api).
+2025-08-22 22:31:52.060 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Cars" AS "c"
+    WHERE "c"."Id" = @__carId_0)
+2025-08-22 22:31:52.073 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__carId_0='?' (DbType = Int64), @__date_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Policies" AS "p"
+    WHERE "p"."CarId" = @__carId_0 AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "p"."StartDate", 'start of day'), '0'), '.') <= @__date_1 AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "p"."EndDate", 'start of day'), '0'), '.') >= @__date_1)
+2025-08-22 22:31:52.076 +03:00 [INF] Executing OkObjectResult, writing value of type 'CarInsurance.Api.Dtos.InsuranceValidityResponse'.
+2025-08-22 22:31:52.078 +03:00 [INF] Executed action CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api) in 42.7332ms
+2025-08-22 22:31:52.081 +03:00 [INF] Executed endpoint 'CarInsurance.Api.Controllers.CarsController.IsInsuranceValid (CarInsurance.Api)'
+2025-08-22 22:31:52.082 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:61341/api/cars/1/insurance-valid?date=2024-06-01 - 200 null application/json; charset=utf-8 62.5792ms
+2025-08-22 22:31:54.485 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:61341/api/cars/1/claims - text/plain; charset=utf-8 99
+2025-08-22 22:31:54.488 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:61341/api/cars/1/claims - 404 0 null 2.6043ms
+2025-08-22 22:31:54.490 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:61341/api/cars/1/claims, Response status code: 404

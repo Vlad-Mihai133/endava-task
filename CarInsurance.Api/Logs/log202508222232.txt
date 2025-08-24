@@ -1,0 +1,45 @@
+2025-08-22 22:32:03.065 +03:00 [INF] Request starting HTTP/1.1 GET https://localhost:61341/api/cars/1/claims - text/plain; charset=utf-8 99
+2025-08-22 22:32:03.073 +03:00 [INF] Request finished HTTP/1.1 GET https://localhost:61341/api/cars/1/claims - 404 0 null 8.0031ms
+2025-08-22 22:32:03.075 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:61341/api/cars/1/claims, Response status code: 404
+2025-08-22 22:32:09.688 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:61341/api/cars/1/claims - text/plain; charset=utf-8 99
+2025-08-22 22:32:09.690 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:61341/api/cars/1/claims - 404 0 null 2.2121ms
+2025-08-22 22:32:09.692 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST https://localhost:61341/api/cars/1/claims, Response status code: 404
+2025-08-22 22:32:14.452 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2025-08-22 22:32:14.515 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+2025-08-22 22:32:14.524 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2025-08-22 19:32:14.5212676+00:00');
+SELECT changes();
+2025-08-22 22:32:14.567 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+2025-08-22 22:32:14.573 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2025-08-22 22:32:14.575 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-08-22 22:32:14.581 +03:00 [INF] No migrations were applied. The database is already up to date.
+2025-08-22 22:32:14.584 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "__EFMigrationsLock";
+2025-08-22 22:32:14.730 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Owners" AS "o")
+2025-08-22 22:32:14.950 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@__now_0='?' (DbType = DateTime), @__AddHours_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CarId", "p"."EndDate", "p"."Provider", "p"."StartDate"
+FROM "Policies" AS "p"
+WHERE "p"."EndDate" <= @__now_0 AND "p"."EndDate" >= @__AddHours_1
+2025-08-22 22:32:14.960 +03:00 [INF] Now listening on: https://localhost:61341
+2025-08-22 22:32:14.962 +03:00 [INF] Now listening on: http://localhost:61342
+2025-08-22 22:32:15.040 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-22 22:32:15.042 +03:00 [INF] Hosting environment: Development
+2025-08-22 22:32:15.043 +03:00 [INF] Content root path: C:\Work\Endava\Task\CarInsurance.Api
+2025-08-22 22:32:16.061 +03:00 [INF] Request starting HTTP/2 GET https://localhost:61341/ - null null
+2025-08-22 22:32:16.224 +03:00 [INF] Request finished HTTP/2 GET https://localhost:61341/ - 404 0 null 175.688ms
+2025-08-22 22:32:16.231 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:61341/, Response status code: 404
+2025-08-22 22:32:19.010 +03:00 [INF] Request starting HTTP/1.1 POST https://localhost:61341/api/cars/1/claims - text/plain; charset=utf-8 99
+2025-08-22 22:32:19.019 +03:00 [INF] Request finished HTTP/1.1 POST https://localhost:61341/api/cars/1/claims - 404 0 null 10.4062ms
+2025-08-22 22:32:19.021 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST https://localhost:61341/api/cars/1/claims, Response status code: 404
